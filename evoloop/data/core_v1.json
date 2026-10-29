@@ -1,0 +1,2043 @@
+{
+  "schema_version": 1,
+  "id": "python-core-v1",
+  "source": "original",
+  "development": [
+    {
+      "id": "dev-prefix-sums",
+      "function_name": "prefix_sums",
+      "category": "sequences",
+      "difficulty": "easy",
+      "description": "Implement prefix_sums(values: list[int]) -> list[int]. Return cumulative sums in order; an empty list returns [].",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              3
+            ]
+          ],
+          "expected": [
+            3
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "args": [
+            [
+              -2,
+              5,
+              -3
+            ]
+          ],
+          "expected": [
+            -2,
+            3,
+            0
+          ]
+        },
+        {
+          "args": [
+            [
+              0,
+              0
+            ]
+          ],
+          "expected": [
+            0,
+            0
+          ]
+        },
+        {
+          "args": [
+            [
+              1000000000000,
+              -1
+            ]
+          ],
+          "expected": [
+            1000000000000,
+            999999999999
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-run-length",
+      "function_name": "run_length_encode",
+      "category": "strings",
+      "difficulty": "easy",
+      "description": "Implement run_length_encode(text: str) -> list[list]. Return consecutive runs as [character, count] pairs, case-sensitive and by Unicode code point; empty returns [].",
+      "tests": [
+        {
+          "args": [
+            ""
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            "a"
+          ],
+          "expected": [
+            [
+              "a",
+              1
+            ]
+          ]
+        },
+        {
+          "args": [
+            "aaabb"
+          ],
+          "expected": [
+            [
+              "a",
+              3
+            ],
+            [
+              "b",
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            "aba"
+          ],
+          "expected": [
+            [
+              "a",
+              1
+            ],
+            [
+              "b",
+              1
+            ],
+            [
+              "a",
+              1
+            ]
+          ]
+        },
+        {
+          "args": [
+            "AAa"
+          ],
+          "expected": [
+            [
+              "A",
+              2
+            ],
+            [
+              "a",
+              1
+            ]
+          ]
+        },
+        {
+          "args": [
+            "你你 好"
+          ],
+          "expected": [
+            [
+              "你",
+              2
+            ],
+            [
+              " ",
+              1
+            ],
+            [
+              "好",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-word-counts",
+      "function_name": "word_counts",
+      "category": "mappings",
+      "difficulty": "easy",
+      "description": "Implement word_counts(text: str) -> dict[str, int]. Split on whitespace and count casefolded tokens; punctuation remains part of a token; empty returns {}.",
+      "tests": [
+        {
+          "args": [
+            ""
+          ],
+          "expected": {}
+        },
+        {
+          "args": [
+            "a a b"
+          ],
+          "expected": {
+            "a": 2,
+            "b": 1
+          }
+        },
+        {
+          "args": [
+            "Hello HELLO"
+          ],
+          "expected": {
+            "hello": 2
+          }
+        },
+        {
+          "args": [
+            " a\tB\na "
+          ],
+          "expected": {
+            "a": 2,
+            "b": 1
+          }
+        },
+        {
+          "args": [
+            "hi hi!"
+          ],
+          "expected": {
+            "hi": 1,
+            "hi!": 1
+          }
+        },
+        {
+          "args": [
+            "Straße STRASSE"
+          ],
+          "expected": {
+            "strasse": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev-stable-partition",
+      "function_name": "stable_partition",
+      "category": "sequences",
+      "difficulty": "easy",
+      "description": "Implement stable_partition(values: list[int], pivot: int) -> list[list[int]]. Return [values less than pivot, values greater than or equal to pivot], preserving input order in each part.",
+      "tests": [
+        {
+          "args": [
+            [],
+            0
+          ],
+          "expected": [
+            [],
+            []
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            2
+          ],
+          "expected": [
+            [
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              2,
+              2
+            ],
+            2
+          ],
+          "expected": [
+            [],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              -1,
+              -3,
+              2
+            ],
+            0
+          ],
+          "expected": [
+            [
+              -1,
+              -3
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              3,
+              1,
+              2,
+              0
+            ],
+            2
+          ],
+          "expected": [
+            [
+              1,
+              0
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            4
+          ],
+          "expected": [
+            [
+              1
+            ],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-first-index",
+      "function_name": "binary_search_first",
+      "category": "search",
+      "difficulty": "medium",
+      "description": "Implement binary_search_first(values: list[int], target: int) -> int for a sorted nondecreasing list. Return the first matching index, or -1. Use O(log n) time.",
+      "tests": [
+        {
+          "args": [
+            [],
+            1
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            1
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            2
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              2,
+              2,
+              3
+            ],
+            2
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            [
+              -5,
+              -2,
+              0,
+              3
+            ],
+            -5
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              1,
+              3,
+              5
+            ],
+            4
+          ],
+          "expected": -1
+        }
+      ]
+    },
+    {
+      "id": "dev-merge-intervals",
+      "function_name": "merge_intervals",
+      "category": "intervals",
+      "difficulty": "medium",
+      "description": "Implement merge_intervals(intervals: list[list[int]]) -> list[list[int]]. Each [start,end] is a closed interval with start<=end. Sort and merge overlapping or touching intervals. Empty returns [].",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                2
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                3,
+                5
+              ],
+              [
+                1,
+                3
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                10
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                12,
+                13
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              10
+            ],
+            [
+              12,
+              13
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                -3,
+                -1
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              -3,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                4
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                4,
+                4
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              1
+            ],
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-unique-window",
+      "function_name": "longest_unique_substring",
+      "category": "strings",
+      "difficulty": "medium",
+      "description": "Implement longest_unique_substring(text: str) -> int. Return the length of the longest contiguous substring with no repeated Unicode code points; empty returns 0.",
+      "tests": [
+        {
+          "args": [
+            ""
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            "aaaa"
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            "abcabcbb"
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "abba"
+          ],
+          "expected": 2
+        },
+        {
+          "args": [
+            "你好吗你"
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "dvdf"
+          ],
+          "expected": 3
+        }
+      ]
+    },
+    {
+      "id": "dev-gcd-list",
+      "function_name": "gcd_list",
+      "category": "numeric",
+      "difficulty": "easy",
+      "description": "Implement gcd_list(values: list[int]) -> int. Return the nonnegative greatest common divisor of all integers; an empty list and all-zero lists return 0.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              0,
+              0
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              -12,
+              18
+            ]
+          ],
+          "expected": 6
+        },
+        {
+          "args": [
+            [
+              7
+            ]
+          ],
+          "expected": 7
+        },
+        {
+          "args": [
+            [
+              8,
+              15
+            ]
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            [
+              0,
+              -24,
+              36
+            ]
+          ],
+          "expected": 12
+        }
+      ]
+    },
+    {
+      "id": "dev-parse-integers",
+      "function_name": "parse_int_list",
+      "category": "parsing",
+      "difficulty": "medium",
+      "description": "Implement parse_int_list(text: str) -> list[int] | None. Parse comma-separated ASCII decimal integers with optional + or - and surrounding whitespace. Whitespace-only input returns []. Return None for any invalid token, including empty tokens, underscores or non-ASCII digits.",
+      "tests": [
+        {
+          "args": [
+            "  "
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            "1, -2,+03"
+          ],
+          "expected": [
+            1,
+            -2,
+            3
+          ]
+        },
+        {
+          "args": [
+            "1,,2"
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            "1,"
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            "1_0"
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            "１２"
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            "+0,-0"
+          ],
+          "expected": [
+            0,
+            0
+          ]
+        },
+        {
+          "args": [
+            "--1"
+          ],
+          "expected": null
+        }
+      ]
+    },
+    {
+      "id": "dev-two-sum",
+      "function_name": "two_sum_indices",
+      "category": "search",
+      "difficulty": "medium",
+      "description": "Implement two_sum_indices(values: list[int], target: int) -> list[int]. Return [i,j] where i<j and values[i]+values[j]==target. Choose the smallest j, then smallest i; return [] when absent.",
+      "tests": [
+        {
+          "args": [
+            [],
+            0
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            2
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              2,
+              7,
+              11,
+              15
+            ],
+            9
+          ],
+          "expected": [
+            0,
+            1
+          ]
+        },
+        {
+          "args": [
+            [
+              3,
+              3
+            ],
+            6
+          ],
+          "expected": [
+            0,
+            1
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              1,
+              2,
+              2
+            ],
+            3
+          ],
+          "expected": [
+            0,
+            2
+          ]
+        },
+        {
+          "args": [
+            [
+              -3,
+              4,
+              3,
+              0
+            ],
+            0
+          ],
+          "expected": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-brackets",
+      "function_name": "balanced_brackets",
+      "category": "parsing",
+      "difficulty": "easy",
+      "description": "Implement balanced_brackets(text: str) -> bool. Validate nesting of (), [] and {}; ignore every other character. Empty input is balanced.",
+      "tests": [
+        {
+          "args": [
+            ""
+          ],
+          "expected": true
+        },
+        {
+          "args": [
+            "a(b[c]{d})"
+          ],
+          "expected": true
+        },
+        {
+          "args": [
+            "([)]"
+          ],
+          "expected": false
+        },
+        {
+          "args": [
+            "]"
+          ],
+          "expected": false
+        },
+        {
+          "args": [
+            "(()"
+          ],
+          "expected": false
+        },
+        {
+          "args": [
+            "{}[]()"
+          ],
+          "expected": true
+        }
+      ]
+    },
+    {
+      "id": "dev-min-coins",
+      "function_name": "min_coin_count",
+      "category": "dynamic_programming",
+      "difficulty": "medium",
+      "description": "Implement min_coin_count(coins: list[int], amount: int) -> int. Coins are positive integer denominations with unlimited supply; amount>=0. Return the minimum number of coins, or -1 if impossible. Amount zero needs 0 coins.",
+      "tests": [
+        {
+          "args": [
+            [],
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [],
+            3
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              5
+            ],
+            11
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            [
+              2
+            ],
+            3
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1,
+              3,
+              4
+            ],
+            6
+          ],
+          "expected": 2
+        },
+        {
+          "args": [
+            [
+              2,
+              2,
+              5
+            ],
+            10
+          ],
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "id": "dev-transpose",
+      "function_name": "transpose",
+      "category": "matrices",
+      "difficulty": "easy",
+      "description": "Implement transpose(matrix: list[list[int]]) -> list[list[int]]. Input is rectangular. Return its transpose; no rows or zero columns returns [].",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [],
+              []
+            ]
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                2,
+                3
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                4
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                -1,
+                0,
+                2
+              ],
+              [
+                3,
+                4,
+                5
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              -1,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              2,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-flatten-once",
+      "function_name": "flatten_once",
+      "category": "sequences",
+      "difficulty": "easy",
+      "description": "Implement flatten_once(values: list[list]) -> list. Flatten exactly one level while preserving order; nested values inside each inner list remain nested.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [],
+              []
+            ]
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                1
+              ],
+              [
+                2,
+                3
+              ]
+            ]
+          ],
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                [
+                  1
+                ]
+              ],
+              [
+                2
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1
+            ],
+            2
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                "a",
+                null
+              ],
+              [
+                true
+              ]
+            ]
+          ],
+          "expected": [
+            "a",
+            null,
+            true
+          ]
+        },
+        {
+          "args": [
+            [
+              [],
+              [
+                0
+              ],
+              []
+            ]
+          ],
+          "expected": [
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-top-words",
+      "function_name": "top_k_frequent",
+      "category": "mappings",
+      "difficulty": "medium",
+      "description": "Implement top_k_frequent(words: list[str], k: int) -> list[str], k>=0. Return up to k distinct words ordered by decreasing frequency, with ties broken by Python ascending string order. Tokens are case-sensitive.",
+      "tests": [
+        {
+          "args": [
+            [],
+            3
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              "a"
+            ],
+            0
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              "b",
+              "a",
+              "b",
+              "a",
+              "c"
+            ],
+            2
+          ],
+          "expected": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "args": [
+            [
+              "z",
+              "z",
+              "a"
+            ],
+            5
+          ],
+          "expected": [
+            "z",
+            "a"
+          ]
+        },
+        {
+          "args": [
+            [
+              "b",
+              "A",
+              "a"
+            ],
+            2
+          ],
+          "expected": [
+            "A",
+            "a"
+          ]
+        },
+        {
+          "args": [
+            [
+              "你",
+              "好",
+              "你"
+            ],
+            1
+          ],
+          "expected": [
+            "你"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dev-max-subarray",
+      "function_name": "max_subarray_sum",
+      "category": "dynamic_programming",
+      "difficulty": "medium",
+      "description": "Implement max_subarray_sum(values: list[int]) -> int. For nonempty input, return the maximum sum of a nonempty contiguous subarray. Empty input returns 0.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              -5
+            ]
+          ],
+          "expected": -5
+        },
+        {
+          "args": [
+            [
+              -3,
+              -1,
+              -2
+            ]
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 6
+        },
+        {
+          "args": [
+            [
+              -2,
+              1,
+              -3,
+              4,
+              -1,
+              2,
+              1,
+              -5,
+              4
+            ]
+          ],
+          "expected": 6
+        },
+        {
+          "args": [
+            [
+              0,
+              -1,
+              0
+            ]
+          ],
+          "expected": 0
+        }
+      ]
+    }
+  ],
+  "holdout": [
+    {
+      "id": "hold-product",
+      "function_name": "product_except_self",
+      "category": "numeric",
+      "difficulty": "medium",
+      "description": "Implement product_except_self(values: list[int]) -> list[int]. At each position return the product of every other element, without division. Empty returns []; a one-element list returns [1].",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              5
+            ]
+          ],
+          "expected": [
+            1
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "expected": [
+            24,
+            12,
+            8,
+            6
+          ]
+        },
+        {
+          "args": [
+            [
+              0,
+              2,
+              3
+            ]
+          ],
+          "expected": [
+            6,
+            0,
+            0
+          ]
+        },
+        {
+          "args": [
+            [
+              0,
+              2,
+              0
+            ]
+          ],
+          "expected": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "args": [
+            [
+              -1,
+              2,
+              -3
+            ]
+          ],
+          "expected": [
+            -6,
+            3,
+            -2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold-rotate",
+      "function_name": "rotate_right",
+      "category": "sequences",
+      "difficulty": "easy",
+      "description": "Implement rotate_right(values: list[int], k: int) -> list[int], k>=0. Rotate right by k positions with wraparound. Empty input returns [].",
+      "tests": [
+        {
+          "args": [
+            [],
+            7
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            10
+          ],
+          "expected": [
+            1
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            0
+          ],
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            1
+          ],
+          "expected": [
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            4
+          ],
+          "expected": [
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "args": [
+            [
+              -1,
+              0,
+              2
+            ],
+            3
+          ],
+          "expected": [
+            -1,
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold-anagrams",
+      "function_name": "group_anagrams",
+      "category": "mappings",
+      "difficulty": "medium",
+      "description": "Implement group_anagrams(words: list[str]) -> list[list[str]]. Words contain lowercase ASCII letters, possibly empty. Group anagrams preserving word order inside groups and ordering groups by first occurrence.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              ""
+            ]
+          ],
+          "expected": [
+            [
+              ""
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              "eat",
+              "tea",
+              "tan",
+              "ate",
+              "nat",
+              "bat"
+            ]
+          ],
+          "expected": [
+            [
+              "eat",
+              "tea",
+              "ate"
+            ],
+            [
+              "tan",
+              "nat"
+            ],
+            [
+              "bat"
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              "a",
+              "a",
+              "b"
+            ]
+          ],
+          "expected": [
+            [
+              "a",
+              "a"
+            ],
+            [
+              "b"
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              "ab",
+              "ba",
+              "aa"
+            ]
+          ],
+          "expected": [
+            [
+              "ab",
+              "ba"
+            ],
+            [
+              "aa"
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              "",
+              "a",
+              ""
+            ]
+          ],
+          "expected": [
+            [
+              "",
+              ""
+            ],
+            [
+              "a"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold-lower-bound",
+      "function_name": "lower_bound",
+      "category": "search",
+      "difficulty": "medium",
+      "description": "Implement lower_bound(values: list[int], target: int) -> int for sorted nondecreasing values. Return the first index whose value>=target, or len(values) when absent. Use O(log n) time.",
+      "tests": [
+        {
+          "args": [
+            [],
+            1
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            2
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              2,
+              4
+            ],
+            2
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              4
+            ],
+            3
+          ],
+          "expected": 2
+        },
+        {
+          "args": [
+            [
+              -5,
+              -1,
+              0
+            ],
+            -1
+          ],
+          "expected": 1
+        }
+      ]
+    },
+    {
+      "id": "hold-intersections",
+      "function_name": "interval_intersections",
+      "category": "intervals",
+      "difficulty": "medium",
+      "description": "Implement interval_intersections(left: list[list[int]], right: list[list[int]]) -> list[list[int]]. Each input contains sorted, disjoint closed intervals with start<=end. Return all intersections in sorted order; endpoint-only overlap is included.",
+      "tests": [
+        {
+          "args": [
+            [],
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ]
+            ],
+            []
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ]
+            ],
+            [
+              [
+                3,
+                5
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              3,
+              3
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                2
+              ]
+            ],
+            [
+              [
+                4,
+                5
+              ]
+            ]
+          ],
+          "expected": []
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                5
+              ],
+              [
+                8,
+                10
+              ]
+            ],
+            [
+              [
+                2,
+                3
+              ],
+              [
+                5,
+                9
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              2,
+              3
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              8,
+              9
+            ]
+          ]
+        },
+        {
+          "args": [
+            [
+              [
+                -4,
+                -1
+              ]
+            ],
+            [
+              [
+                -3,
+                0
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              -3,
+              -1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold-edit-distance",
+      "function_name": "levenshtein_distance",
+      "category": "dynamic_programming",
+      "difficulty": "hard",
+      "description": "Implement levenshtein_distance(left: str, right: str) -> int. Return the minimum number of single Unicode-code-point insertions, deletions and substitutions needed to transform left into right; every operation costs 1.",
+      "tests": [
+        {
+          "args": [
+            "",
+            ""
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            "",
+            "abc"
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "abc",
+            ""
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "kitten",
+            "sitting"
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "same",
+            "same"
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            "你好",
+            "你们好"
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            "ab",
+            "ba"
+          ],
+          "expected": 2
+        }
+      ]
+    },
+    {
+      "id": "hold-grid-paths",
+      "function_name": "count_paths",
+      "category": "matrices",
+      "difficulty": "medium",
+      "description": "Implement count_paths(grid: list[list[int]]) -> int. A rectangular grid contains 0=open and 1=blocked. Count paths from top-left to bottom-right moving only right or down without entering blocked cells. Empty grids or zero columns return 0.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              []
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "expected": 1
+        },
+        {
+          "args": [
+            [
+              [
+                1
+              ]
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "expected": 2
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "expected": 2
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          ],
+          "expected": 0
+        }
+      ]
+    },
+    {
+      "id": "hold-rpn",
+      "function_name": "evaluate_rpn",
+      "category": "parsing",
+      "difficulty": "hard",
+      "description": "Implement evaluate_rpn(tokens: list[str]) -> int | None. Evaluate reverse Polish notation with ASCII signed integer literals and operators +,-,*,/. Division truncates toward zero exactly using integer arithmetic. Return None for empty/malformed expressions or division by zero. No underscores or non-ASCII digits are accepted.",
+      "tests": [
+        {
+          "args": [
+            []
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "2",
+              "3",
+              "+",
+              "4",
+              "*"
+            ]
+          ],
+          "expected": 20
+        },
+        {
+          "args": [
+            [
+              "-7",
+              "3",
+              "/"
+            ]
+          ],
+          "expected": -2
+        },
+        {
+          "args": [
+            [
+              "7",
+              "-3",
+              "/"
+            ]
+          ],
+          "expected": -2
+        },
+        {
+          "args": [
+            [
+              "1",
+              "0",
+              "/"
+            ]
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "1",
+              "2"
+            ]
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "+"
+            ]
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "100000000000000000000000000001",
+              "3",
+              "/"
+            ]
+          ],
+          "expected": 33333333333333333333333333333
+        },
+        {
+          "args": [
+            [
+              "1_0"
+            ]
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "5",
+              "2",
+              "-"
+            ]
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            [
+              "0"
+            ]
+          ],
+          "expected": 0
+        },
+        {
+          "args": [
+            [
+              "１２"
+            ]
+          ],
+          "expected": null
+        },
+        {
+          "args": [
+            [
+              "-0"
+            ]
+          ],
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

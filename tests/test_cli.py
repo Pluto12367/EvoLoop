@@ -47,3 +47,35 @@ def test_cli_improvement_reports_and_reloads_strategy(tmp_path, capsys):
         second = json.loads(capsys.readouterr().out)
     assert second['baseline_strategy']['id'] == first['selected_strategy']['id']
     assert second['stop_reason'] == 'no_improvement'
+
+
+def test_cli_catalog_is_offline_and_lists_core(capsys):
+    assert main(['--list-benchmarks']) == 0
+    catalog = {b['name']: b for b in json.loads(capsys.readouterr().out)}
+    assert catalog['core']['development'] == 16
+    assert catalog['core']['holdout'] == 8
+
+
+def test_canned_mock_cannot_score_core_benchmark(tmp_path):
+    import pytest
+    with pytest.raises(SystemExit) as error:
+        main(['--improve', '--benchmark', 'core', '--state-dir', str(tmp_path)])
+    assert error.value.code == 2
+    assert not list(tmp_path.iterdir())
+
+
+def test_cli_selects_core_for_real_client_without_network(tmp_path, capsys):
+    class Client:
+        def __init__(self, *args): pass
+        def generate(self, problem, feedback, *, strategy=''):
+            assert not hasattr(problem, 'tests')
+            return 'pass'
+        def complete(self, prompt): return 'Consider edge cases'
+    with patch.dict('os.environ', {'EVOLOOP_API_KEY': 'test-key', 'EVOLOOP_BASE_URL': 'https://example.com/v1', 'EVOLOOP_MODEL': 'test-model'}):
+        with patch('evoloop.cli.OpenAICompatibleClient', Client):
+            with patch('evoloop.cli.DockerExecutor.run', return_value=ExecutionResult(Status.PASSED, 0)):
+                assert main(['--improve', '--model', 'openai-compatible', '--benchmark', 'core', '--rounds', '1', '--state-dir', str(tmp_path)]) == 0
+    report = json.loads(capsys.readouterr().out)
+    assert report['benchmark']['id'] == 'python-core-v1'
+    assert report['baseline_development']['total'] == 16
+    assert report['stop_reason'] == 'no_improvement'
