@@ -2,6 +2,20 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Any
 import keyword
+from typing import Literal
+
+FailureKind = Literal['solution', 'model', 'infrastructure', 'budget']
+
+
+class BudgetExhausted(Exception):
+    pass
+
+
+@dataclass(frozen=True)
+class TaskSpec:
+    id: str
+    description: str
+    function_name: str
 
 
 @dataclass(frozen=True)
@@ -36,6 +50,7 @@ class ExecutionResult:
     status: Status
     elapsed_seconds: float
     error_summary: str | None = None
+    failure_kind: FailureKind | None = None
 
 
 @dataclass(frozen=True)
@@ -45,6 +60,7 @@ class Attempt:
     test_result: Status
     elapsed_seconds: float
     error_summary: str | None
+    failure_kind: FailureKind | None = None
 
 
 @dataclass(frozen=True)

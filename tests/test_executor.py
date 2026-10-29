@@ -1,4 +1,5 @@
 import subprocess
+import pytest
 from unittest.mock import patch
 from evoloop.executor import DockerExecutor
 from evoloop.models import Problem, TestCase, Status
@@ -37,3 +38,11 @@ def test_docker_connection_error_is_unavailable():
     with patch('evoloop.executor.subprocess.run', return_value=subprocess.CompletedProcess([], 1, stdout='', stderr='failed to connect to the docker API')):
         result = DockerExecutor().run(Problem('p', 'x', 'f', []), 'pass')
     assert result.status == Status.UNAVAILABLE
+
+
+@pytest.mark.parametrize('exit_code', [1, 137])
+def test_solution_process_exit_is_not_infrastructure(exit_code):
+    with patch('evoloop.executor.subprocess.run', return_value=subprocess.CompletedProcess([], exit_code, stdout='', stderr='')):
+        result = DockerExecutor().run(Problem('p', 'x', 'f', [TestCase([], 1)]), 'import os; os._exit(1)')
+    assert result.status == Status.ERROR
+    assert result.failure_kind == 'solution'

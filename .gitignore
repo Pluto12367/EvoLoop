@@ -7,3 +7,5 @@ __pycache__/
 pytest-cache-files-*/
 .venv/
 *.egg-info/
+runs/
+report.json
