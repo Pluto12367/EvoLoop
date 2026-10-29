@@ -1,5 +1,27 @@
 # EvoLoop
 
+## 题集和持续集成
+
+项目保留 4 道 `demo` 演示题，另提供人工编写的 `core` 题集：24 道题、156 个测试用例，固定分成 16 道开发题和 8 道保留题。覆盖字符串、序列、映射、数值、搜索、区间、解析、矩阵及动态规划。题目描述包含函数签名和返回约定；详细说明见 [题集说明](docs/benchmarks/python-core-v1.md)。
+
+无需密钥即可查看题集 ID、数量和内容哈希：
+
+```powershell
+python -m evoloop --list-benchmarks
+```
+
+配置真实模型后，可显式选择新题集。两轮实验在每题均达到三次尝试的保守上限下最多需要 194 次模型调用；示例将预算设为 200，不会自动提高默认的 100 次上限：
+
+```powershell
+python -m evoloop --improve --benchmark core --model openai-compatible --rounds 2 --max-model-calls 200 --state-dir runs/core-v1
+```
+
+`mock` 客户端只支持 `demo`，不能用其预设答案对 `core` 评分。新题集有独立的可信参考实现，位于 `tests/reference_solutions.py`，只用于验证预期结果和 Docker 判题，不会打包进运行时或发给模型。这仍是小规模功能评测题集，未证明真实模型的改进效果，也不保证算法时间复杂度或统计显著性；保留集只在接口层对策略提议器隐藏，仓库中的题目本身是公开的。
+
+GitHub Actions 会在 push、PR 和手动触发时，在 Ubuntu 上对 Python 3.12、3.13、3.14 运行全套 pytest。每个任务先检查 Docker、准备镜像并检查 wheel 题集资源，然后验证全部 24 个参考解答和原有端到端流程；JUnit 报告会作为运行附件保存。工作流不需要模型密钥，使用只读仓库权限和固定的官方 Action 提交版本。
+
+本机缺少 Docker 时会跳过集成测试；CI 设置 `EVOLOOP_REQUIRE_DOCKER=1`，缺少引擎或镜像时必须失败。可在本机仅运行不依赖容器的测试：`python -m pytest -m "not integration" -q`。要强制完整验证，在 PowerShell 设置 `$env:EVOLOOP_REQUIRE_DOCKER='1'` 后运行 `python -m pytest -q`，结束后可用 `Remove-Item Env:EVOLOOP_REQUIRE_DOCKER` 清除设置。
+
 ## 第二阶段：模拟策略自改进
 
 现已提供有预算上限的策略实验。无需 API 密钥，使用明确标注的模拟客户端生成代码，并在真实 Docker 容器中评测：

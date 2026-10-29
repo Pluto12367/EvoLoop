@@ -9,3 +9,6 @@ pytest-cache-files-*/
 *.egg-info/
 runs/
 report.json
+build/
+dist/
+test-results/
