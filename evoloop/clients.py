@@ -1,10 +1,10 @@
 import json
 from urllib.request import Request, urlopen
-from .models import Problem
+from .models import TaskSpec
 
 
 class MockModelClient:
-    def generate(self, problem: Problem, feedback: str | None) -> str:
+    def generate(self, problem: TaskSpec, feedback: str | None, *, strategy: str = '') -> str:
         solutions = {'add': 'def add(a, b):\n    return a + b\n',
                      'reverse': 'def reverse(text):\n    return text[::-1]\n'}
         if problem.id not in solutions:
@@ -18,10 +18,13 @@ class OpenAICompatibleClient:
             raise ValueError('Model endpoint must use HTTPS')
         self.base_url, self.api_key, self.model, self.timeout = base_url.rstrip('/'), api_key, model, timeout
 
-    def generate(self, problem: Problem, feedback: str | None) -> str:
+    def generate(self, problem: TaskSpec, feedback: str | None, *, strategy: str = '') -> str:
         prompt = (f'Solve this Python problem: {problem.description}\n'
-                  f'Define the function {problem.function_name}. Return only executable Python code, '
+                  f'Strategy guidance: {strategy}\nDefine the function {problem.function_name}. Return only executable Python code, '
                   f'no markdown or explanation.\nPrevious attempt feedback: {feedback or "none"}')
+        return self.complete(prompt)
+
+    def complete(self, prompt: str) -> str:
         body = json.dumps({'model': self.model, 'messages': [{'role': 'user', 'content': prompt}]}).encode()
         request = Request(self.base_url + '/chat/completions', data=body,
                           headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.api_key})

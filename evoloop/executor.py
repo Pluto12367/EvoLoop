@@ -7,7 +7,7 @@ from .models import ExecutionResult, Problem, Status
 
 # This script runs only inside the container, never in the application process.
 _RUNNER = r'''
-import json, os, sys
+import copy, json, os, sys
 payload = json.load(sys.stdin)
 out = os.dup(1)
 null = os.open('/dev/null', os.O_WRONLY)
@@ -18,7 +18,7 @@ try:
     exec(compile(payload['code'], '<solution>', 'exec'), namespace)
     fn = namespace[payload['function_name']]
     for index, test in enumerate(payload['tests'], 1):
-        if fn(*test['args']) != test['expected']:
+        if fn(*copy.deepcopy(test['args'])) != test['expected']:
             os.write(out, ('EVOL_RESULT:failed:%d\n' % index).encode())
             break
     else:
@@ -58,8 +58,10 @@ class DockerExecutor:
         elapsed = time.monotonic() - start
         if process.returncode == 125 or 'failed to connect to the docker api' in process.stderr.lower():
             return ExecutionResult(Status.UNAVAILABLE, elapsed, 'Docker unavailable or image missing')
+        if process.returncode in (126, 127):
+            return ExecutionResult(Status.ERROR, elapsed, 'Container execution failed', 'infrastructure')
         if process.returncode != 0:
-            return ExecutionResult(Status.ERROR, elapsed, 'Container execution failed')
+            return ExecutionResult(Status.ERROR, elapsed, 'Solution process exited abnormally', 'solution')
         output = process.stdout.strip()
         if output == 'EVOL_RESULT:passed:0':
             return ExecutionResult(Status.PASSED, elapsed)

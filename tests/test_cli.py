@@ -35,3 +35,15 @@ def test_openai_client_sends_prompt_and_reads_code():
         code = OpenAICompatibleClient('https://example.com/v1', 'key', 'model').generate(example_problems()[0], 'case 1 failed')
     assert code.startswith('def add')
     assert b'case 1 failed' in request.call_args.args[0].data
+
+
+def test_cli_improvement_reports_and_reloads_strategy(tmp_path, capsys):
+    from tests.test_improvement import FixtureExecutor
+    with patch('evoloop.cli.DockerExecutor.run', new=FixtureExecutor().run):
+        assert main(['--improve', '--state-dir', str(tmp_path)]) == 0
+        first = json.loads(capsys.readouterr().out)
+        assert first['promotion_eligible'] and first['persisted']
+        assert main(['--improve', '--state-dir', str(tmp_path)]) == 0
+        second = json.loads(capsys.readouterr().out)
+    assert second['baseline_strategy']['id'] == first['selected_strategy']['id']
+    assert second['stop_reason'] == 'no_improvement'
